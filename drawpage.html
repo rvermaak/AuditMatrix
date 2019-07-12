@@ -1,0 +1,495 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+
+
+    
+
+   
+    
+
+
+    <style>
+
+        .table-fit {
+            width: 1px;
+        }
+
+        table, td {
+            border: 1px solid black;
+        }
+
+
+        .dropbtn {
+            background-color: #3498DB;
+            color: white;
+            padding: 16px;
+            font-size: 16px;
+            border: none;
+            cursor: pointer;
+        }
+
+            .dropbtn:hover, .dropbtn:focus {
+                background-color: #2980B9;
+            }
+
+        .dropdown {
+            position: absolute;
+            display: inline-block;
+            vertical-align: top;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f1f1f1;
+            min-width: 160px;
+            overflow: auto;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+        }
+
+            .dropdown-content a {
+                color: black;
+                padding: 12px 16px;
+                text-decoration: none;
+                display: block;
+            }
+
+        .dropdown a:hover {
+            background-color: #ddd;
+        }
+
+        .show {
+            display: block;
+        }
+
+        .btn btn-secondary dropdown-toggle {
+            
+        }
+
+    </style>
+
+</head>
+<body>
+
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+
+    
+
+    <button onclick="drawHeading()">drawHeading</button>
+
+
+
+    <button onclick="ChangeDataAccessData()">ChangeDataAccessData</button>
+
+
+    <button onclick="GetItemHight()">GetItemHight</button>
+
+    <script>
+
+        var tableCellButtonAdresses = [];
+
+        window.onloadend
+        {
+            //var newDiv = createButton("r1c1" );
+            //document.getElementById("r1c1dropdownMenuButton").appendChild(newDiv);
+        }
+
+        function changeThisButtonText(actionTxT, btnName, classForBtn)
+        {
+            var btnToChange = document.getElementById(btnName);
+            btnToChange.innerText = actionTxT;
+            btnToChange.className = classForBtn;
+            
+        }
+
+
+        function createButton(cellAddressSTR) {
+
+            var div = document.createElement("div");
+
+            var button = document.createElement("button");
+            button.className = "btn btn-secondary dropdown-toggle";
+            var CellButtonName = cellAddressSTR + "dropdownMenuButton";
+            //window.alert(CellButtonName);
+            button.id = CellButtonName;
+            tableCellButtonAdresses.push(CellButtonName);
+            button.setAttribute("data-toggle", "dropdown");
+            button.setAttribute("aria-haspopup", "true");
+            button.setAttribute("aria-expanded", "false");
+            button.innerText = "Window";
+
+            div.append(button);
+            div.className = "dropdown";
+
+            var linkDiv = document.createElement("div");
+            linkDiv.className = "dropdown-menu";
+            linkDiv.setAttribute("aria-labelledby", CellButtonName);
+
+            var a = document.createElement("a")
+            a.href = "#"
+            a.className = "btn btn-success"
+            a.id = "testbtn"
+            //a.setAttribute("onclick", "javascript('Good' , 'dropdownMenuButton', 'btn btn-success')")
+            a.setAttribute("onclick", "changeThisButtonText('Good' , '" + CellButtonName + "', 'btn btn-success')")
+            a.innerText = "Good"
+
+            var b = document.createElement("b")
+            b.href = "#"
+            b.className = "btn btn-warning"
+            b.id = "testbtn2"
+            b.setAttribute("onclick", "changeThisButtonText('Cracked' , '" + CellButtonName + "', 'btn btn-warning')")
+            b.innerText = "Cracked"
+
+            var c = document.createElement("c")
+            c.href = "#"
+            c.className = "btn btn-danger"
+            c.id = "testbtn3"
+            c.setAttribute("onclick", "changeThisButtonText('Broken' , '" + CellButtonName + "', 'btn btn-danger')")
+            c.innerText = "Broken"
+
+            linkDiv.append(a);
+            linkDiv.append(b);
+            linkDiv.append(c);
+            div.append(linkDiv);
+
+            //$(".main-div").append(div);
+
+            //document.body.append(div);
+
+            //var td = document.getElementById("001,03");
+            //td.value = "";
+            //td.appendChild(div);
+            //document.getElementById("001,03").appendChild(div);
+            //window.alert(document.getElementById("001,03").value);
+
+
+            return div;
+        }
+
+        //$(document).ready(function () {
+        //     $(".dropdown-toggle").dropdown();
+        // });
+        //window.onload = drawDropButton();
+
+        //Global VAR's
+        var Data = [];
+        var cellAddress = [];
+        var cellButtonNames = [];
+
+        function myFunction() {
+            var table = document.getElementById("myTable");
+            var row = table.insertRow(0);
+            var cell1 = row.insertCell(0);
+            var cell2 = row.insertCell(1);
+            cell1.innerHTML = "NEW CELL1";
+            cell2.innerHTML = "NEW CELL2";
+        }
+
+
+        function drawHeading() {
+            //Pagebreak
+            var pageBreak = document.createElement("br");
+            var pageBreak2 = document.createElement("br");
+            
+
+
+            //Value ADD
+            var docElement = document.createElement("h2");
+            var textNode = document.createTextNode("Value ADD");
+            docElement.appendChild(textNode);
+            docElement.id = "heading";
+            document.body.appendChild(docElement);
+            document.getElementById("heading").style.textAlign = "center";
+            document.getElementById("heading").style.textDecoration = "underline";
+
+            //Break
+            document.getElementById("heading").appendChild(pageBreak);
+
+
+            //Daily Window Checklist
+            var docElement1 = document.createElement("h2");
+            var textNode1 = document.createTextNode("Daily Window Checklist");
+            docElement1.appendChild(textNode1);
+            docElement1.id = "heading2";
+            document.body.appendChild(docElement1);
+            document.getElementById("heading2").style.textAlign = "center";
+            document.getElementById("heading2").style.textDecoration = "underline";
+
+            //Break
+            document.getElementById("heading2").appendChild(pageBreak2);
+
+
+            //UserName
+
+            var userNameLabel = "UserName : ";
+            var userName = "Robert";
+            var docElement4 = document.createElement("h3");
+            var textNode4 = document.createTextNode(userNameLabel + userName);
+            docElement4.appendChild(textNode4);
+            docElement4.id = "userNameHeading";
+            document.body.appendChild(docElement4);
+            document.getElementById("userNameHeading").style.textAlign = "left";
+            document.getElementById("userNameHeading").style.textDecoration = "underline";
+
+
+
+            //month : _____
+            //var d = new Date(year, month, day, hours, minutes, seconds, milliseconds);
+
+            var maand = "January";
+            var monthheader = ("Month: ");
+            var CompleteMonth = monthheader + maand;
+            var docElement3 = document.createElement("h3");
+            var textNode3 = document.createTextNode(CompleteMonth);
+            docElement3.appendChild(textNode3);
+            docElement3.id = "heading3";
+            document.body.appendChild(docElement3);
+            document.getElementById("heading3").style.textAlign = "right";
+            document.getElementById("heading3").style.textDecoration = "underline";
+
+            //Break
+            var pageBreak3 = document.createElement("br");
+            document.getElementById("heading3").appendChild(pageBreak3);
+            document.getElementById("heading3").appendChild(pageBreak3);
+
+            //array table headers
+            var headers = ["Reference", "Position", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31"];
+
+            //var cellAddress = [];
+            //var Data = [];
+            //array ref001 and 002 data
+            var ref001 = ["001", "Managers Office", "Okay 01", "Broken 02", "Okay 03", "Okay 04", "Okay 05", "Okay 06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31"];
+            var ref002 = ["002", "Managers Office", "Broken 01", "Broken 02", "Okay 03", "Okay 04", "Okay 05", "Okay 06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31"];
+
+            Data.push(ref001);
+            Data.push(ref002);
+
+            //window.alert(Data.length);
+            //window.alert(Data[1][10]);
+
+
+            var body = document.getElementsByTagName('body')[0];
+            var body2 = document.getElementById('lyf');
+            var tbl = document.createElement('table');
+            tbl.className = "table-responsive table-fit";
+            tbl.style.width = '100%';
+            tbl.setAttribute('border', '1');
+            var tbdy = document.createElement('tbody');
+
+            headerRowCount = 1;
+
+            //get array length
+            var headerCount = headers.length;
+            var rowDataCount = Data.length;
+
+            for (var i = 0; i < headerRowCount; i++) {
+                var tr = document.createElement('tr');
+
+                for (var j = 0; j < headerCount; j++) {
+                    //if (i == 2 && j == 1) {
+                    //    break
+                    //} else
+                    {
+
+                        var td = document.createElement('th');
+                        td.width = "39px";
+                        //var cellButton = createButton("test");
+                        td.appendChild(document.createTextNode(headers[j]));
+                        //td.appendChild(cellButton);
+                        //i == 1 && j == 1 ? td.setAttribute('rowSpan', '2') : null;
+
+                        tr.appendChild(td)
+                    }
+                }
+                tbdy.appendChild(tr);
+            }
+
+
+
+            /* TEST ADD Multidimensional Data */
+            for (var ii = 0; ii < rowDataCount; ii++) {
+                var tr = document.createElement('tr');
+
+                for (var jj = 0; jj < headerCount; jj++) {
+                    {
+
+                        //cellAddressSTR = (ii + "," + jj);
+                        cellAddressSTR = (Data[ii][0] + "," + headers[jj]);
+                        cellAddress.push(cellAddressSTR);
+                        //window.alert(ii + "," + jj);
+                        var td = document.createElement('td');
+                        td.id = cellAddressSTR;
+                        //td.appendChild(document.createTextNode(Data[ii][jj]));
+                        //i == 1 && j == 1 ? td.setAttribute('rowSpan', '2') : null;
+                        if (jj < 2) {
+                            td.appendChild(document.createTextNode(Data[ii][jj]));
+                        }
+                        if (jj > 1) {
+
+                            //td.contentEditable = true;
+                            // createbutton ( cellname )
+                            //createButton(cellAddressSTR);
+                            
+                            //td.appendChild(createButton(cellAddressSTR));
+                            //td.innerHTML = '<input type="button" value = "Button Button">';
+                            var thing = (createButton(cellAddressSTR));
+                            var htmlThing = thing.innerHTML;
+                            td.innerHTML = (htmlThing);
+                        }
+
+                        tr.appendChild(td)
+                    }
+                }
+                tbdy.appendChild(tr);
+
+
+                //window.alert(cellAddress[0]);
+                //window.alert(cellAddress[1]);
+            }
+            /* TEST ADD Multidimensional Data */
+
+
+            tbl.appendChild(tbdy);
+            body.appendChild(tbl);
+
+
+            var body = document.getElementsByTagName('body')[0];
+            var tbl = document.createElement('table');
+            tbl.style.width = '100%';
+            tbl.setAttribute('border', '1');
+            var tbdy = document.createElement('tbody');
+
+
+
+
+            //document.getElementById("001,03").appendChild(textNode1);
+            //document.getElementById("1,3").appendChild(textNode3);
+
+            //get array length
+            //var headerCount = headers.length;
+            //window.alert(headers.length);
+            //var x = 0;
+
+            //Get Row count (sql get num of returned rows)
+            //var rowCount = 2;
+            //var r = 0;
+            /*
+            for (r = rowCount; r < rowCount ; r++)
+            {
+                var tr = document.createElement('tr');
+
+                for (x = headerCount; x < headerCount; x++)
+                {
+                    if (rowCount == 0 || headerCount == 0) {
+                        break
+                    }
+
+                    else
+                    {
+                        var td = document.createElement('td');
+                        td.appendChild(document.createTextNode("bla bla"));
+                        window.alert(headers[x]);
+                        /*i == 1 && j == 1 ? td.setAttribute('rowSpan', '2') : null;*/
+            //// tr.appendChild(td);
+            /*
+            }
+        }
+        tbdy.appendChild(tr);
+}
+tbl.appendChild(tbdy);
+body.appendChild(tbl);
+*/
+
+
+
+
+        }
+
+
+        function ChangeDataAccessData() {
+
+            var docElement = document.createElement("h2");
+            var textNodeTest = document.createTextNode("Test Input");
+            docElement.appendChild(textNodeTest);
+            docElement.id = "TestText";
+            document.getElementById("001,03").appendChild(textNodeTest);
+
+            window.alert(cellAddress[0]);
+        }
+
+
+
+
+
+        function copy() {
+            document.getElementById("label").innerHTML = document.getElementById("mySelect").value
+        }
+
+
+        function drawDropButton() {
+            /*
+             *  <div class="dropdown">
+                    <button onclick="pressDropdownBtn()" class="dropbtn">Dropdown</button>
+
+                    <div id="myDropdown" class="dropdown-content">
+                        <a href="#">Link 1</a>
+                        <a href="#">Link 2</a>
+                        <a href="#">Link 3</a>
+                    </div>
+                </div>
+            */
+            var docElementButton = document.createElement("button");
+            docElementButton.className = ("dropdown");
+            var textNodeTestButton = document.createTextNode("Test Button");
+            docElementButton.appendChild(textNodeTestButton);
+            docElementButton.id = "TestButton";
+            document.body.appendChild(docElementButton);
+            //document.getElementById("heading").style.textAlign = "center";
+            //document.getElementById("heading").style.textDecoration = "underline";
+
+
+        }
+
+
+
+
+        /* When the user clicks on the button, toggle between hiding and showing the dropdown content */
+        function pressDropdownBtn() {
+            document.getElementById("myDropdown").classList.toggle("show");
+        }
+
+        // Close the dropdown if the user clicks outside of it
+        window.onclick = function (event)
+        {
+            if (!event.target.matches('.dropbtn')) {
+                var dropdowns = document.getElementsByClassName("dropdown-content");
+                var i;
+                for (i = 0; i < dropdowns.length; i++) {
+                    var openDropdown = dropdowns[i];
+                    if (openDropdown.classList.contains('show')) {
+                        openDropdown.classList.remove('show');
+                    }
+                }
+            }
+        }
+    </script>
+
+</body>
+</html>
